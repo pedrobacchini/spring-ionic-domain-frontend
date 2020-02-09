@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoryService } from "../../services/domain/category.service";
 
 /**
  * Generated class for the CategoryPage page.
@@ -15,7 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CategoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public categoryService: CategoryService) {
 
+    this.categoryService.findAll()
+      .subscribe(categories => console.log(categories), error => console.log(error));
+  }
 }
