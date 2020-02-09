@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryService } from "../../services/domain/category.service";
 import { CategoryDTO } from "../../models/category.dto";
 
-/**
- * Generated class for the CategoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-category',
@@ -25,6 +18,6 @@ export class CategoryPage {
     public categoryService: CategoryService) {
 
     this.categoryService.findAll()
-      .subscribe(categories => this.categories = categories, error => console.log(error));
+      .subscribe(categories => this.categories = categories, () => {});
   }
 }
