@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { CategoryPage } from "../category/category";
 
 @IonicPage()
 @Component({
@@ -10,6 +11,10 @@ export class HomePage {
 
   constructor(public navCtrl: NavController) {
 
+  }
+
+  login() {
+    this.navCtrl.setRoot('CategoryPage')
   }
 
 }
