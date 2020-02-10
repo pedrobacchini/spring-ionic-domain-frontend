@@ -2,11 +2,14 @@ import { Injectable } from "@angular/core";
 import { HttpClient} from "@angular/common/http";
 import { CredentialsDTO } from "../models/credentials.dto";
 import { API_CONFIG } from "../config/api.config";
-import { User_session } from "../models/user_session";
+import { UserSession } from "../models/userSession";
 import { StorageService } from "./storage.service";
+import { JwtHelper } from "angular2-jwt";
 
 @Injectable()
 export class AuthenticationService {
+
+  jwthelper: JwtHelper = new JwtHelper();
 
   constructor(
     public http: HttpClient,
@@ -25,8 +28,9 @@ export class AuthenticationService {
 
   private successfulAuthentication(authorizationHeader: string) {
     const token : string = authorizationHeader.substring(7);
-    const userSession : User_session = {
-      token: token
+    const userSession : UserSession = {
+      token: token,
+      email: this.jwthelper.decodeToken(token).sub
     };
     this.storageService.setUserSession(userSession);
   }

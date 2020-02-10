@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
 import { STORAGE_KEYS } from "../config/storage_keys.config";
-import { User_session } from "../models/user_session";
+import { UserSession } from "../models/userSession";
 
 @Injectable()
 export class StorageService {
 
-  getUserSssion() : User_session {
+  getUserSssion() : UserSession {
     const item = localStorage.getItem(STORAGE_KEYS.userSession);
     return item != null ? JSON.parse(item) : item;
   }
 
-  setUserSession(userSession: User_session) {
+  setUserSession(userSession: UserSession) {
     localStorage.setItem(STORAGE_KEYS.userSession, JSON.stringify(userSession));
   }
 
