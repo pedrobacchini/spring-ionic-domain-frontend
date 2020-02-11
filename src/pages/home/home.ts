@@ -18,7 +18,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public menu: MenuController,
-    public authenticationService:AuthenticationService) {
+    public authenticationService: AuthenticationService) {
 
   }
 
@@ -27,7 +27,8 @@ export class HomePage {
     this.authenticationService.authenticate(this.credentials)
       .subscribe(() => {
         this.navCtrl.setRoot('CategoriesPage')
-      }, () => {})
+      }, () => {
+      })
   }
 
   ionViewWillEnter() {
