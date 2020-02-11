@@ -6,9 +6,9 @@ import { CategoryDTO } from "../../models/category.dto";
 @IonicPage()
 @Component({
   selector: 'page-category',
-  templateUrl: 'category.html',
+  templateUrl: 'categories.html',
 })
-export class CategoryPage {
+export class CategoriesPage {
 
   private categories: CategoryDTO[];
 

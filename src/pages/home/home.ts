@@ -26,7 +26,7 @@ export class HomePage {
     console.log(this.credentials);
     this.authenticationService.authenticate(this.credentials)
       .subscribe(() => {
-        this.navCtrl.setRoot('CategoryPage')
+        this.navCtrl.setRoot('CategoriesPage')
       }, () => {})
   }
 

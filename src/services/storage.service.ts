@@ -5,7 +5,7 @@ import { UserSession } from "../models/userSession";
 @Injectable()
 export class StorageService {
 
-  getUserSssion() : UserSession {
+  getUserSession() : UserSession {
     const item = localStorage.getItem(STORAGE_KEYS.userSession);
     return item != null ? JSON.parse(item) : item;
   }
