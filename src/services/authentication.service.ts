@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { CredentialsDTO } from "../models/credentials.dto";
 import { API_CONFIG } from "../config/api.config";
 import { UserSession } from "../models/userSession";
@@ -13,7 +13,7 @@ export class AuthenticationService {
 
   constructor(
     public http: HttpClient,
-    public storageService:StorageService) {
+    public storageService: StorageService) {
   }
 
   authenticate(credentialsDTO: CredentialsDTO) {
@@ -26,9 +26,19 @@ export class AuthenticationService {
     });
   }
 
+  refreshToken() {
+    return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh-token`, {}, {
+      observe: "response",
+      responseType: "text"
+    }).map((response) => {
+      let authorization = response.headers.get('Authorization');
+      this.successfulAuthentication(authorization)
+    });
+  }
+
   private successfulAuthentication(authorizationHeader: string) {
-    const token : string = authorizationHeader.substring(7);
-    const userSession : UserSession = {
+    const token: string = authorizationHeader.substring(7);
+    const userSession: UserSession = {
       token: token,
       email: this.jwthelper.decodeToken(token).sub
     };

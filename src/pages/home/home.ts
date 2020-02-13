@@ -22,15 +22,6 @@ export class HomePage {
 
   }
 
-  login() {
-    console.log(this.credentials);
-    this.authenticationService.authenticate(this.credentials)
-      .subscribe(() => {
-        this.navCtrl.setRoot('CategoriesPage')
-      }, () => {
-      })
-  }
-
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
@@ -38,6 +29,22 @@ export class HomePage {
   ionViewDidLeave() {
     this.menu.swipeEnable(true);
 
+  }
+
+  ionViewDidEnter() {
+    this.authenticationService.refreshToken()
+      .subscribe(() => {
+        this.navCtrl.setRoot('CategoriesPage')
+      }, () => {
+      })
+  }
+
+  login() {
+    this.authenticationService.authenticate(this.credentials)
+      .subscribe(() => {
+        this.navCtrl.setRoot('CategoriesPage')
+      }, () => {
+      })
   }
 
 }
