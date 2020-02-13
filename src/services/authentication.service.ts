@@ -36,6 +36,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.storageService.setUserSession(null);
+    this.storageService.removeUserSession();
   }
 }

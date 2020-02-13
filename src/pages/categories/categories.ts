@@ -18,6 +18,11 @@ export class CategoriesPage {
     public categoryService: CategoryService) {
 
     this.categoryService.findAll()
-      .subscribe(categories => this.categories = categories, () => {});
+      .subscribe(categories =>
+          this.categories = categories,
+        (error) => {
+          if (error.status === 403)
+            this.navCtrl.setRoot('HomePage');
+        });
   }
 }

@@ -22,7 +22,9 @@ export class ProfilePage {
     this.clientService.getProfile()
       .subscribe((client) => {
         this.client = client;
-      }, () => {
+      }, (error) => {
+        if (error.status === 403)
+          this.navCtrl.setRoot('HomePage');
       })
   }
 

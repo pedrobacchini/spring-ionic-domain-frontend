@@ -8,7 +8,6 @@ import { ClientDTO } from "../../models/client.dto";
 export class ClientService {
 
   constructor(public http: HttpClient) {
-
   }
 
   getProfile(): Observable<ClientDTO> {

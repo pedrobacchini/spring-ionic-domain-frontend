@@ -14,4 +14,8 @@ export class StorageService {
     localStorage.setItem(STORAGE_KEYS.userSession, JSON.stringify(userSession));
   }
 
+  removeUserSession() {
+    localStorage.removeItem(STORAGE_KEYS.userSession);
+  }
+
 }
