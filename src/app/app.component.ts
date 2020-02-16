@@ -23,8 +23,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public authenticationService: AuthenticationService
-  ) {
+    public authenticationService: AuthenticationService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

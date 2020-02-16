@@ -11,6 +11,6 @@ export class ClientService {
   }
 
   getProfile(): Observable<ClientDTO> {
-    return this.http.get<ClientDTO>(`${API_CONFIG.baseUrl}/cliente/profile`);
+    return this.http.get<ClientDTO>(`${API_CONFIG.baseUrl}/client/profile`);
   }
 }
