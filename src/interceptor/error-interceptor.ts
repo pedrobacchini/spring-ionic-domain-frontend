@@ -3,6 +3,7 @@ import { HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Observable } from "rxjs/Rx";
 import { StorageService } from "../services/storage.service";
 import { AlertController } from "ionic-angular";
+import { FieldMessageDTO } from "../models/field-message-d-t.o";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -27,6 +28,9 @@ export class ErrorInterceptor implements HttpInterceptor {
           case 401:
             this.handle401();
             break;
+          case 422:
+            this.handle422(errorObj);
+            break;
           default:
             this.handlerDefaultError(errorObj);
             break;
@@ -49,13 +53,28 @@ export class ErrorInterceptor implements HttpInterceptor {
     }).present();
   }
 
-  private handlerDefaultError(error: any) {
+  private handle422(errorObj: any) {
     this.alertController.create({
-      title: `Error ${error.status}: ${error.error}`,
-      message: error.message,
+      title: 'Validation error',
+      message: this.listErrors(errorObj.errors),
       enableBackdropDismiss: false,
       buttons: [{text: 'OK'}]
     }).present();
+  }
+
+  private handlerDefaultError(errorObj: any) {
+    this.alertController.create({
+      title: `Error ${errorObj.status}: ${errorObj.error}`,
+      message: errorObj.message,
+      enableBackdropDismiss: false,
+      buttons: [{text: 'OK'}]
+    }).present();
+  }
+
+  private listErrors(error: FieldMessageDTO[]) {
+    let string = '';
+    error.forEach(fieldMessage => string += `<strong>${fieldMessage.fieldName}</strong> ${fieldMessage.message}`);
+    return string;
   }
 }
 

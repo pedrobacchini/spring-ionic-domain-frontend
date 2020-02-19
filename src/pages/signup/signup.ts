@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CityService } from "../../services/domain/city.service";
 import { StateService } from "../../services/domain/state.service";
 import { StateDTO } from "../../models/state.dto";
 import { CityDTO } from "../../models/city.dto";
+import { ClientService } from "../../services/domain/client.service";
 
 @IonicPage()
 @Component({
@@ -22,7 +23,9 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cityService: CityService,
-    public stateService: StateService) {
+    public stateService: StateService,
+    public clientService: ClientService,
+    public alertController: AlertController) {
 
     this.formGroup = formBuilder.group({
       name: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -54,7 +57,12 @@ export class SignupPage {
   }
 
   signupClient() {
-    console.log('signupClient');
+    this.clientService.insert(this.formGroup.value)
+      .subscribe(() => {
+        this.savedInsertOk();
+      }, () => {
+
+      })
   }
 
   updateCities() {
@@ -62,12 +70,25 @@ export class SignupPage {
     this.cityService.findAll(stateId)
       .subscribe((cities) => {
         this.cities = cities;
-        this.formGroup.controls.cityId.setValue(null);
+        this.formGroup.controls.cityId.setValue(this.cities[0].id);
       }, () => {
       })
   }
 
   isInvalid(fieldName: string): boolean {
     return this.formGroup.controls[fieldName].dirty && this.formGroup.controls[fieldName].errors != null;
+  }
+
+  private savedInsertOk() {
+    this.alertController.create({
+      title: 'Success!',
+      message: 'Account Register',
+      enableBackdropDismiss: false,
+      buttons: [{
+        text: 'OK', handler: () => {
+          this.navCtrl.pop()
+        }
+      }]
+    }).present();
   }
 }

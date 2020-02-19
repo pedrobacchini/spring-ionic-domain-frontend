@@ -13,4 +13,11 @@ export class ClientService {
   getProfile(): Observable<ClientDTO> {
     return this.http.get<ClientDTO>(`${API_CONFIG.baseUrl}/client/profile`);
   }
+
+  insert(clientDTO: ClientDTO) {
+    return this.http.post(`${API_CONFIG.baseUrl}/client`, clientDTO, {
+      observe: 'response',
+      responseType: "text"
+    });
+  }
 }
