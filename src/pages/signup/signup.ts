@@ -21,8 +21,8 @@ export class SignupPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    public cityService:CityService,
-    public stateService:StateService) {
+    public cityService: CityService,
+    public stateService: StateService) {
 
     this.formGroup = formBuilder.group({
       name: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -49,7 +49,8 @@ export class SignupPage {
         this.states = states;
         this.formGroup.controls.stateId.setValue(this.states[0].id);
         this.updateCities();
-      }, () => {})
+      }, () => {
+      })
   }
 
   signupClient() {
@@ -62,6 +63,11 @@ export class SignupPage {
       .subscribe((cities) => {
         this.cities = cities;
         this.formGroup.controls.cityId.setValue(null);
-      }, () => {})
+      }, () => {
+      })
+  }
+
+  isInvalid(fieldName: string): boolean {
+    return this.formGroup.controls[fieldName].dirty && this.formGroup.controls[fieldName].errors != null;
   }
 }
